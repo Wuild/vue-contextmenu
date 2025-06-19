@@ -23,8 +23,12 @@
     "right-click",
     "menu"
   ],
-  "author": "wuild",
+  "author": "Wuild",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wuild/vue-contextmenu"
+  },
   "peerDependencies": {
     "vue": "^3.0.0"
   },
