@@ -1,0 +1,44 @@
+{
+  "name": "@wuild/vue-contextmenu",
+  "version": "1.0.0",
+  "description": "A customizable context menu component for Vue 3",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "style": "dist/style.css",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "context-menu",
+    "contextmenu",
+    "right-click",
+    "menu"
+  ],
+  "author": "wuild",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "rollup": "^3.25.0",
+    "rollup-plugin-scss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "sass-embedded": "^1.89.2",
+    "typescript": "^4.9.5",
+    "vue": "^3.3.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

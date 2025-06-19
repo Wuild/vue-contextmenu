@@ -1,0 +1,153 @@
+// Variables
+$border-radius: 0.375rem;
+$transition-duration: 0.1s;
+$menu-min-width: 12rem;
+$scrollbar-width: 8px;
+$icon-size: 1.25rem;
+$opacity-disabled: 0.5;
+$opacity-secondary: 0.7;
+
+// Theme variables
+:root {
+  // Light theme (default)
+  --context-bg: #ffffff;
+  --context-text: #1f2937;
+  --context-hover: rgba(0, 0, 0, 0.05);
+  --context-divider: rgba(0, 0, 0, 0.1);
+  --context-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] {
+  --context-bg: #374151;
+  --context-text: #e5e7eb;
+  --context-hover: rgba(255, 255, 255, 0.1);
+  --context-divider: rgba(255, 255, 255, 0.1);
+  --context-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin menu-radius($position) {
+  @if $position == 'top' {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  } @else {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+}
+
+// Animations
+@keyframes context-menu-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Main styles
+.context-menu {
+  position: fixed;
+  z-index: 1000;
+  background-color: var(--context-bg);
+  color: var(--context-text);
+  border-radius: $border-radius;
+  box-shadow: var(--context-shadow);
+  min-width: $menu-min-width;
+
+  &-items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &.is-submenu {
+    position: fixed;
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: $scrollbar-width;
+
+      &-track {
+        background: transparent;
+      }
+    }
+  }
+
+  &-item {
+    $item: &;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    padding: 0.375rem 0.75rem;
+    transition: background-color $transition-duration ease;
+
+    &:first-child {
+      @include menu-radius('top');
+    }
+
+    &:last-child {
+      @include menu-radius('bottom');
+    }
+
+    &:hover:not(#{$item}-disabled) {
+      background-color: var(--context-hover);
+    }
+
+    &-disabled {
+      opacity: $opacity-disabled;
+      cursor: default;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    &-with-submenu {
+      position: relative;
+    }
+
+    // Nested components
+    .item-label {
+      flex-grow: 1;
+    }
+
+    .item-icon {
+      @include flex-center;
+      width: $icon-size;
+      height: $icon-size;
+    }
+
+    .item-shortcut {
+      font-size: 0.75rem;
+      opacity: $opacity-secondary;
+      margin-left: 1rem;
+    }
+
+    .submenu-arrow {
+      margin-left: 8px;
+      font-size: 0.8em;
+      opacity: $opacity-secondary;
+    }
+  }
+
+  &-divider {
+    display: flex;
+    height: 1px;
+    background-color: var(--context-divider);
+  }
+}
